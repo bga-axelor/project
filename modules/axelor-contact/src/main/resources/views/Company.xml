@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+		<grid model="com.axelor.contact.db.Company" title="Company" name="company-grid">
+				<field name="name" title="Name"></field>
+		</grid>
+
+
+		<!-- Form -->
+
+		<form name="company-form" title="Company" model="com.axelor.contact.db.Company">
+				<panel title="Company">
+						<field name="name" title="Name" colSpan="12" />
+						<field name="status"/>
+						<button onClick="action-contact-company-about" name="aboutcompany" title="About Company" />
+				</panel>
+
+
+		</form>
+
+		<action-method name="action-contact-company-about">
+				<call class="com.axelor.contact.web.TestController" method="test(orgName)" />
+		</action-method>
+
+		<!-- <action-method name="action-contact-organization-checkExist"> -->
+		<!-- <call class="com.axelor.contact.web.OrganizationController" method="isExistOrg(orgName)" /> -->
+		<!-- </action-method> -->
+</object-views>

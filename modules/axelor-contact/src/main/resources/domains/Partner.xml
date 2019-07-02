@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<domain-models xmlns="http://axelor.com/xml/ns/domain-models" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
+  http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
+
+		<module package="com.axelor.contact.db" name="contact" />
+
+		<entity name="Partner" sequential="true" cachable="true" repository="abstract">
+				<one-to-one name="company" ref="com.axelor.contact.db.Company" />
+				<one-to-many name="addresses" ref="com.axelor.contact.db.Address" mappedBy="partner" />
+				<many-to-one name="department" ref="com.axelor.contact.db.Department"></many-to-one>
+				<string name="title" />
+				<string name="firstName" required="true" initParam="true" />
+				<string name="lastName" required="true" initParam="true" />
+				<string name="fullName" namecolumn="true" search="firstName,lastName"> 
+				<![CDATA[
+				if(firstName == null && lastName==null){
+				  return null;
+				}
+				if(title == null){
+  				return firstName + " " + lastName;
+				}
+				return title + " " + firstName + " " + lastName;
+				
+				]]>
+				</string>
+				
+				<date name="dateOfBirth" />
+
+				<string name="email" unique="true" required="true" max="50" />
+				<string name="mno" />
+				<string name="notes" title="Note" large="true" />
+
+				<boolean name="isTechnical" />
+				
+				<finder-method name="findByName" using="fullName"/>
+				  <finder-method name="findByEmail" using="email"/>
+		</entity>
+
+</domain-models>

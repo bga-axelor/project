@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+		<grid model="com.axelor.contact.db.Partner" title="Partner" name="partner-grid">
+				<hilite background="warning" if="$contains(firstName,'fff')" />
+				<field name="fullName" />
+				<field name="firstName"></field>
+				<field name="lastName"></field>
+				<field name="company"></field>
+				<field name="department"></field>
+				<field name="isTechnical"></field>
+		</grid>
+
+		<form model="com.axelor.contact.db.Partner" title="Partner" name="partner-form" onSave="action-partner-validate">
+				<panel canCollapse="true" title="Personal" css="panel-red">
+						<field name="fullName" title="Name" readonly="false" colSpan="12">
+								<editor x-show-titles="false"> <!-- x-show-titles hide tile and show placeholder -->
+										<field name="title" colSpan="2" selection="title.selection" />
+										<field name="firstName" colSpan="5" />
+										<field name="lastName" colSpan="5" />
+								</editor>
+						</field>
+						<!-- <field name="firstName" title="First Name" /> -->
+						<!-- <field name="lastName" /> -->
+						<field name="dateOfBirth" colSpan="7" />
+
+				</panel>
+
+				<panel>
+						<field name="mno" title="Mobile No." />
+						<field name="email" colSpan="4">
+
+								<viewer>
+								<![CDATA[
+						<a href="mailto:{{record.email}}">{{record.email}}</a> 
+            <!-- <h4>Email::{{record.email}}</h4> -->
+								]]> 
+								</viewer>
+
+						</field>
+						<button name="generateEmailBtn" title="Generate" onClick="action-partner-script" colSpan="2" />
+						<field name="company" />
+						<field name="isTechnical" />
+						<!-- <field name="department"></field> -->
+						<!-- <field name="department" domain="self.isTechnical='true'"></field> -->
+						<field name="department" domain="self.isTechnical=:isTechnical"></field>
+
+				</panel>
+				<panel title="Notes">
+						<field name="notes" colSpan="12" showTitle="false" />
+				</panel>
+				<panel-related field="addresses">
+						<field name="street" />
+						<field name="area" />
+						<field name="city" />
+						<field name="state" />
+						<field name="zip" />
+						<field name="country" />
+				</panel-related>
+				<panel sidebar="true">
+						<field name="createdOn" />
+						<field name="createdBy" />
+						<field name="updatedOn" />
+						<field name="updatedBy" />
+				</panel>
+
+				<panel-related field="company">
+						<field name="name" title="Name" />
+				</panel-related>
+
+		</form>
+
+
+
+		<!-- <action-attrs name="action-partner-attrs"> -->
+		<!-- <attribute name="domain" for="department" expr="self.name = 'd2' "/> -->
+		<!-- </action-attrs> -->
+
+		<selection name="title.selection">
+				<option value="Dr.">Dr.</option>
+				<option value="Miss.">Miss.</option>
+				<option value="Mr.">Mr.</option>
+				<option value="Mrs.">Mrs.</option>
+		</selection>
+
+		<action-validate name="action-partner-validate">
+				<error message="DOB is not valid " if="dateOfBirth &gt;=__date__" />
+		</action-validate>
+
+		<action-script name="action-partner-script">
+				<script language="js" transactional="true">
+				<![CDATA[
+			   var req = $request.context; 
+         var res = $response; 
+         var email="";
+         var suffix="@gmail.com";
+         if(req.firstName  !=null && req.lastName != null){
+           email = req.firstName + req.lastName +suffix;
+         }else{
+           email = "axelor" + suffix;
+       }
+				res.setValue('email', email);
+				]]>
+				
+				</script>
+		</action-script>
+
+</object-views>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+  http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+		<!-- Contact -->
+
+		<!-- <menuitem name="menu-contact-book" title="Address Book" /> -->
+
+		<!-- <menuitem name="menu-contact-friends" parent="menu-contact-book" title="All Contact" action="contact.all" /> -->
+
+		<!-- <action-view name="contact.all" title="Contacts" model="com.axelor.contact.db.Contact"> -->
+		<!-- <view type="grid" name="contact-grid" /> -->
+		<!-- <view type="form" name="contact-form" /> -->
+		<!-- </action-view> -->
+
+		<!-- Company -->
+
+		<menuitem name="menu-company" title="Company" />
+
+		<menuitem title="All Company" name="menu-company-company" parent="menu-company" action="company.all" />
+
+		<action-view name="company.all" title="Company" model="com.axelor.contact.db.Company">
+				<view type="grid" name="company-grid" />
+				<view type="form" name="company-form" />
+		</action-view>
+
+		<!-- Department -->
+
+		<menuitem title="Department" name="menu-company-department" parent="menu-company" />
+
+		<menuitem title="All Department" name="menu-company-department.all" parent="menu-company-department" action="department.all" />
+
+		<action-view name="department.all" title="Department" model="com.axelor.contact.db.Department">
+				<view type="grid" name="department-grid" />
+				<!-- <view type="kanban" name="department-kanban" /> -->
+				<view type="form" name="department-form" />
+
+		</action-view>
+
+		<menuitem title="Technical Department" name="menu-company-department.technical" parent="menu-company-department" action="department.all.technical" />
+		<action-view name="department.all.technical" title="Technical Department" model="com.axelor.contact.db.Department">
+				<view type="grid" name="department-grid" />
+				<view type="form" name="department-form" />
+				<view-param name="popup" value="reload" />
+				<domain> self.isTechnical=true</domain>
+		</action-view>
+
+		<menuitem title="All Partner" name="menu-company-partner" parent="menu-company" action="partner.all" />
+
+		<action-view name="partner.all" title="Partner" model="com.axelor.contact.db.Partner">
+				<view type="grid" name="partner-grid" />
+				<view type="form" name="partner-form" />
+		</action-view>
+
+
+
+
+</object-views>
