@@ -13,6 +13,7 @@
 		<form name="company-form" title="Company" model="com.axelor.contact.db.Company">
 				<panel title="Company">
 						<field name="name" title="Name" colSpan="12" />
+						<field name="countries" widget="TagSelect" />
 						<field name="status"/>
 						<button onClick="action-contact-company-about" name="aboutcompany" title="About Company" />
 				</panel>

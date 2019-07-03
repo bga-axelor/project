@@ -9,7 +9,7 @@ public class ContactModule extends AxelorModule {
 	@Override
 	protected void configure() {
 	bind(CompanyService.class).to(CompanyServiceImpl.class);
-		
+//	bind(CompanyServiceImpl.class).to(CompanyRepository.class);	
 	}
 
 }

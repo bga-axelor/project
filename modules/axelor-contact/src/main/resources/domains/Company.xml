@@ -7,8 +7,9 @@
 
 		<entity name="Company" sequential="true" cachable="true">
 
-				<string name="name" required="true" unique="true" />
-
+				<many-to-many name="countries" ref="com.axelor.contact.db.Country" required="true" />
+				<string name="name" required="true" unique="true" title="location" />
+				<finder-method name="findByName" using="name" />
 		</entity>
 
 </domain-models>

@@ -34,7 +34,7 @@
 				<boolean name="isTechnical" />
 				
 				<finder-method name="findByName" using="fullName"/>
-				  <finder-method name="findByEmail" using="email"/>
+				 <finder-method name="findByEmail" using="email"/>
 		</entity>
 
 </domain-models>
