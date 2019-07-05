@@ -51,6 +51,7 @@
 		<action-view name="partner.all" title="Partner" model="com.axelor.contact.db.Partner">
 				<view type="grid" name="partner-grid" />
 				<view type="form" name="partner-form" />
+				<view type="cards" name="partner-cards" />
 		</action-view>
 
 

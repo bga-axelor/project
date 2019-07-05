@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<company-detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+		<company>
+				<name>Axelor</name>
+				<location>India,France</location>
+		</company>
+
+		<company>
+				<name>IBM</name>
+				<!-- <location>England|India|Brazil</location> -->
+				<location>India</location>
+		</company>
+
+		<company>
+				<name>Wipro</name>
+				<!-- <location>England|India</location> -->
+				<location>India</location>
+		</company>
+
+		<company>
+				<name>TCS</name>
+				<!-- <location>England|Germany</location> -->
+				<location>India</location>
+		</company>
+
+		<company>
+				<name>Oracle</name>
+				<!-- <location>Japan|India|country_test</location> -->
+				<location>India</location>
+		</company>
+
+		<company>
+				<name>B2hp</name>
+				<location>India</location>
+		</company>
+
+		<company>
+				<name>Bbhp</name>
+				<location>India</location>
+		</company>
+
+</company-detail>

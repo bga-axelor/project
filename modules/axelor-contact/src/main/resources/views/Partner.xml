@@ -51,6 +51,7 @@
 				<panel title="Notes">
 						<field name="notes" colSpan="12" showTitle="false" />
 				</panel>
+				
 				<panel-related field="addresses">
 						<field name="street" />
 						<field name="area" />
@@ -59,6 +60,8 @@
 						<field name="zip" />
 						<field name="country" />
 				</panel-related>
+				
+				
 				<panel sidebar="true">
 						<field name="createdOn" />
 						<field name="createdBy" />
@@ -71,6 +74,41 @@
 				</panel-related>
 
 		</form>
+
+		<!-- Cards view -->
+		<cards name="partner-cards" title="Partner" model="com.axelor.contact.db.Partner" orderBy="fullName">
+				<field name="fullName" />
+				<field name="phone" />
+				<field name="email" />
+				<!-- <field name="address" /> -->
+				<!-- <field name="hasImage" /> -->
+				<!-- <template><![CDATA[ -->
+				<!-- <div class="span4 card-image"> -->
+				<!-- <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}"> -->
+				<!-- <img ng-if="!hasImage" src="img/user.png"> -->
+				<!-- <strong>{{fullName}}</strong> -->
+				<!-- </div> -->
+				<!-- <div class="span8"> -->
+				<!-- <address> -->
+				<!-- <strong>{{address.street}} {{address.area}}</strong><br> -->
+				<!-- {{address.city}}<span ng-if="address.state">, {{address.state}}</span><span ng-if="address.zip"> - {{address.zip}}</span><br> -->
+				<!-- {{address.country.name}}<br> -->
+				<!-- <abbr ng-if="phone" title="Phone">P:</abbr> {{phone}}<br> -->
+				<!-- <abbr ng-if="email" title="Email">E:</abbr> {{email}}<br> -->
+				<!-- </address> -->
+				<!-- </div> -->
+				<!-- ]]></template> -->
+
+				<template>
+				<![CDATA[
+				<div><h6>Hello partner<h6></div>
+				<abbr ng-if="phone" title="Phone">P:</abbr> {{phone}}<br> 
+        <abbr ng-if="email" title="Email">E:</abbr> {{email}}<br> 
+				]]>
+				
+				</template>
+		</cards>
+
 
 
 

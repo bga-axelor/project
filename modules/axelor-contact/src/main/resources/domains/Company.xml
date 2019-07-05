@@ -3,9 +3,9 @@
 		xsi:schemaLocation="http://axelor.com/xml/ns/domain-models
   http://axelor.com/xml/ns/domain-models/domain-models_5.0.xsd">
 
-		<module package="com.axelor.contact.db" name="contact" />
+		<module package="com.axelor.contact.db" name="contact"  />
 
-		<entity name="Company" sequential="true" cachable="true">
+		<entity name="Company" sequential="true" cachable="true" repository="abstract">
 
 				<many-to-many name="countries" ref="com.axelor.contact.db.Country" required="true" />
 				<string name="name" required="true" unique="true" title="location" />

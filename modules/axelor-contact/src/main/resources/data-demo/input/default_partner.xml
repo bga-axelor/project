@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<partner-detail xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+		<partner title="miss">
+				<fname>test1</fname>
+				<lname>test1</lname>
+				<email>test@gmail.com</email>
+				<department name="Civil" isTechnical="false" />
+
+				<addresses>
+						<address>
+								<street value="f_sreet" />
+								<area value="f_area" />
+								<city value="f_city" />
+								<zip value="123456" />
+								<state value="Gujarat" />
+								<country value="India" />
+						</address>
+						<address>
+								<street value="s_sreet" />
+								<area value="s_area" />
+								<city value="s_city" />
+								<zip value="223456" />
+								<state value="Gujarat" />
+								<country value="India" />
+						</address>
+				</addresses>
+		</partner>
+
+		<partner title="miss">
+				<fname>aa</fname>
+				<lname>aaa</lname>
+				<email>aaaa@gmail.com</email>
+
+				<department name="Civil" isTechnical="false" />
+
+				<addresses>
+						<address>
+								<street value="f_sreet" />
+								<area value="f_area" />
+								<city value="f_city" />
+								<zip value="123456" />
+								<state value="Gujarat" />
+								<country value="India" />
+						</address>
+						<address>
+								<street value="s_sreet" />
+								<area value="s_area" />
+								<city value="s_city" />
+								<zip value="223456" />
+								<state value="Gujarat" />
+								<country value="India" />
+						</address>
+				</addresses>
+		</partner>
+
+</partner-detail>

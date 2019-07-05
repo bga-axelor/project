@@ -5,7 +5,7 @@
 
 		<module name="contact" package="com.axelor.contact.db" />
 
-		<entity name="Country" cachable="true">
+		<entity name="Country" cachable="true" repository="abstract">
 
 				<string name="code" max="5" />
 				<string name="name" unique="true" max="50" />

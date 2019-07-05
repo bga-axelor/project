@@ -1,13 +1,14 @@
 package com.axelor.contact.service.impl;
 
-import java.util.List;
-
 import com.axelor.contact.db.Company;
-import com.axelor.contact.db.repo.CompanyRepository;
+import com.axelor.contact.repository.CompanyRepository;
 import com.axelor.contact.service.CompanyService;
 import com.google.inject.Inject;
 
 public class CompanyServiceImpl implements CompanyService {
+
+//	@Inject
+//	private AbstractCompanyRepository abstractCompanyRepository;
 
 	@Inject
 	private CompanyRepository companyRepository;
@@ -28,6 +29,7 @@ public class CompanyServiceImpl implements CompanyService {
 			System.err.println("Company not found..");
 			return new Company();
 		}
+
 	}
 
 }
