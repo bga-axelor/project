@@ -52,9 +52,7 @@
 				<view type="grid" name="partner-grid" />
 				<view type="form" name="partner-form" />
 				<view type="cards" name="partner-cards" />
+				<context name="json-enhance" expr="false"/>
 		</action-view>
-
-
-
 
 </object-views>

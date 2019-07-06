@@ -32,7 +32,7 @@
 				<string name="notes" title="Note" large="true" />
 
 				<boolean name="isTechnical" />
-				
+				<binary name="image" title="Profile" help="Max size 4MB." image="true"></binary>
 				<finder-method name="findByName" using="fullName"/>
 				 <finder-method name="findByEmail" using="email"/>
 		</entity>
