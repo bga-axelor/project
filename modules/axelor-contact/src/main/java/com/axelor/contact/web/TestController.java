@@ -1,26 +1,38 @@
 package com.axelor.contact.web;
 
-import com.axelor.rpc.ActionRequest;
-import com.axelor.rpc.ActionResponse;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import com.opencsv.CSVWriter;
 
 public class TestController {
 
-	public void test(String orgName) {
-		System.out.println("Orgname::" + orgName);
-	}
+  public static void main(String[] args) {
 
-	public void test(ActionRequest request, ActionResponse response) {
-//		 organization = request.getContext().asType(Organization.class);
-//		System.out.println(organization.getOrgName());
-//
-//		System.out.println("Request..");
-//		System.out.println(request.getAction());
-//		System.out.println(request.getCriteria());
-//		System.out.println(request.getContext());
-//		System.out.println(request.getFields());
-//		System.out.println("call test method..in controller..!");
-//		response.setFlash("test from testcontroller.."); //info
-//		response.setAlert("test from testcontroller..");
-	}
+    System.out.println("Export with csv ");
+    String[] items1 = {"book", "coin", "pencil"};
+    String[] items2 = {"pen", "chair", "lamp"};
+    String[] items3 = {"ball", "bowl", "spectacles"};
+    String[] header = {"Name", "Class", "Marks"};
 
+    List<String[]> entries = new ArrayList<String[]>();
+    entries.add(items1);
+    entries.add(items2);
+    entries.add(items3);
+
+    String fileName = "src/main/resources/data-export/items.csv";
+
+    try (FileOutputStream fos = new FileOutputStream(fileName);
+        OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+        CSVWriter writer = new CSVWriter(osw)) {
+      System.out.println("File name::" + fileName);
+      writer.writeNext(header);
+      writer.writeAll(entries);
+    } catch (Exception e) {
+      e.printStackTrace();
+      System.out.println("Error msg::" + e.getMessage());
+    }
+  }
 }

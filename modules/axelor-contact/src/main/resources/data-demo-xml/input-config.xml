@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml-inputs xmlns="http://axelor.com/xml/ns/data-import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/data-import
+  http://axelor.com/xml/ns/data-import/data-import_5.0.xsd">
+
+
+		<input root="country-details" file="default_country.xml">
+				<bind node="country" type="com.axelor.contact.db.Country" search="self.code = :_code">
+						<bind node="@code" to="_code" />
+						<bind node="@name" to="name" />
+						<bind node="@code" to="code" />
+				</bind>
+		</input>
+
+
+		<input root="company-detail" file="default_company.xml">
+				<bind node="company" type="com.axelor.contact.db.Company" search="self.name = :name" update="false">
+						<bind node="name" to="name" />
+						<bind node="location" to="_location" />
+						<!-- <bind node="location" to="countries" /> -->
+						<!-- <bind to="countries" search="self.name in :_location" eval="_location.split('\\|') as List" /> -->
+						<!-- <bind column="Location" to="countries" search="self.name in :Location" eval="Location.split('\\|') as List" /> -->
+						<bind node="location" to="countries" eval="call:com.axelor.contact.web.CountryController:getListOfCountries(_location)" />
+				</bind>
+		</input>
+
+
+		<!-- <input file="default_partner.xml" root="partner-detail"> -->
+		<!-- <bind node="partner" type="com.axelor.contact.db.Partner" search="self.email = :_email" update="true"> -->
+		<!-- <bind node="@title" to="title" /> -->
+		<!-- <bind node="fname" to="firstName" /> -->
+		<!-- <bind node="lname" to="lastName" /> -->
+		<!-- <bind node="email" to="_email" /> -->
+		<!-- <bind node="email" to="email" /> -->
+
+		<!-- One to many -->
+
+		<!-- <bind node="addresses/address" to="addresses" type="com.axelor.contact.db.Partner.Address"> -->
+		<!-- <bind node="street/@value" to="street"></bind> -->
+		<!-- <bind node="area/@value" to="area"></bind> -->
+		<!-- <bind node="city/@value" to="city"></bind> -->
+		<!-- <bind node="zip/@value" to="zip"></bind> -->
+		<!-- <bind node="state/@value" to="state"></bind> -->
+		<!-- <bind node="country/@value" to="country"></bind> -->
+		<!-- </bind> -->
+
+		<!-- Many to one -->
+
+		<!-- <bind node="department" to="department" type="com.axelor.contact.db.Department" search="self.name =:name"> -->
+		<!-- <bind node="@name" to="name" /> -->
+		<!-- <bind node="@isTechnical" to="isTechnical" /> -->
+		<!-- </bind> -->
+
+		<!-- One to One -->
+		<!-- </bind> -->
+
+		<!-- </input> -->
+
+
+
+</xml-inputs>

@@ -4,28 +4,62 @@
   http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
 		<grid model="com.axelor.contact.db.Partner" title="Partner" name="partner-grid">
+				<toolbar>
+						<button name="btnExport" title="Export CSV" icon="fa-file-excel-o" onClick="export.contact.partner.csv" />
+						<!-- <button name="btnExport" title="Export .tmp" icon="fa-file-excel-o" onClick="export.contact.partner" /> -->
+						<button name="btnExport" title="Export st" icon="fa-file-xml-o" onClick="export.contact.partner" />
+				</toolbar>
 				<hilite background="warning" if="$contains(firstName,'fff')" />
 				<field name="fullName" />
 				<field name="firstName"></field>
 				<field name="lastName"></field>
+				<field name="dateOfBirth" />
+				<field name="addresses">
+						<grid title="Address List">
+								<field name="street" />
+								<field name="area" />
+								<field name="city" />
+								<field name="state" />
+								<field name="zip" />
+								<field name="country" />
+						</grid>
+						<form title="Address">
+								<field name="street" />
+								<field name="area" />
+								<field name="city" />
+								<field name="state" />
+								<field name="zip" />
+								<field name="country" />
+						</form>
+				</field>
 				<field name="company"></field>
 				<field name="department"></field>
 				<field name="isTechnical"></field>
+
 		</grid>
 
 		<form model="com.axelor.contact.db.Partner" title="Partner" name="partner-form" onSave="action-partner-validate">
-				<panel canCollapse="true" title="Personal" css="panel-red">
-						<field name="fullName" title="Name" readonly="false" colSpan="12">
-								<editor x-show-titles="false"> <!-- x-show-titles hide tile and show placeholder -->
-										<field name="title" colSpan="2" selection="title.selection" />
-										<field name="firstName" colSpan="5" />
-										<field name="lastName" colSpan="5" />
-								</editor>
-						</field>
-						<!-- <field name="firstName" title="First Name" /> -->
-						<!-- <field name="lastName" /> -->
-						<field name="dateOfBirth" colSpan="7" />
+				<toolbar>
+						<button name="btnExport" title="Export st" showIf="id" icon="fa-print" onClick="export.st.contact.partner" />
+						<button name="btnExport" title="Export tmp" showIf="id" icon="fa-print" onClick="export.tmp.contact.partner" />
+				</toolbar>
+				<panel title="Personal" css="panel-red">
+						<panel colSpan="4">
+								<field name="image" showTitle="false"></field>
+						</panel>
+						<panel colSpan="8" canCollapse="true">
+								<field name="fullName" title="Name" readonly="false" colSpan="12">
+										<editor x-show-titles="false"> <!-- x-show-titles hide tile and show placeholder -->
+												<field name="title" colSpan="2" selection="title.selection" />
+												<field name="firstName" colSpan="5" />
+												<field name="lastName" colSpan="5" />
+										</editor>
+								</field>
+								<!-- <field name="firstName" title="First Name" /> -->
+								<!-- <field name="lastName" /> -->
+								<field name="dateOfBirth" colSpan="7" />
 
+						</panel>
 				</panel>
 
 				<panel>
@@ -51,7 +85,7 @@
 				<panel title="Notes">
 						<field name="notes" colSpan="12" showTitle="false" />
 				</panel>
-				
+
 				<panel-related field="addresses">
 						<field name="street" />
 						<field name="area" />
@@ -60,8 +94,8 @@
 						<field name="zip" />
 						<field name="country" />
 				</panel-related>
-				
-				
+
+
 				<panel sidebar="true">
 						<field name="createdOn" />
 						<field name="createdBy" />
@@ -78,32 +112,27 @@
 		<!-- Cards view -->
 		<cards name="partner-cards" title="Partner" model="com.axelor.contact.db.Partner" orderBy="fullName">
 				<field name="fullName" />
-				<field name="phone" />
+				<field name="mno" />
 				<field name="email" />
-				<!-- <field name="address" /> -->
-				<!-- <field name="hasImage" /> -->
-				<!-- <template><![CDATA[ -->
-				<!-- <div class="span4 card-image"> -->
-				<!-- <img ng-if="hasImage" ng-src="{{$image(null, 'image')}}"> -->
-				<!-- <img ng-if="!hasImage" src="img/user.png"> -->
-				<!-- <strong>{{fullName}}</strong> -->
-				<!-- </div> -->
-				<!-- <div class="span8"> -->
-				<!-- <address> -->
-				<!-- <strong>{{address.street}} {{address.area}}</strong><br> -->
-				<!-- {{address.city}}<span ng-if="address.state">, {{address.state}}</span><span ng-if="address.zip"> - {{address.zip}}</span><br> -->
-				<!-- {{address.country.name}}<br> -->
-				<!-- <abbr ng-if="phone" title="Phone">P:</abbr> {{phone}}<br> -->
-				<!-- <abbr ng-if="email" title="Email">E:</abbr> {{email}}<br> -->
-				<!-- </address> -->
-				<!-- </div> -->
-				<!-- ]]></template> -->
-
+				<field name="address" />
+				<field name="hasImage" />
+				<field name="addresses" />
 				<template>
 				<![CDATA[
-				<div><h6>Hello partner<h6></div>
-				<abbr ng-if="phone" title="Phone">P:</abbr> {{phone}}<br> 
-        <abbr ng-if="email" title="Email">E:</abbr> {{email}}<br> 
+<!-- 			<div>{{addresses}}</div> -->
+				  <div class="span4 card-image"">
+				  <img ng-if="hasImage" ng-src="{{$image(null,'image')}}" >
+				  <img ng-if="!hasImage" ng-src="img/user.png" >
+		          <strong>{{fullName}}</strong>
+		      </div>
+					<div class="span8">
+					   <address><strong>{{address.street}} {{address.area}}</strong><br/>
+					  {{address.city}} {{address.state}} {{address.zip}} {{address.country}}<br/>
+					    <abbr title="mno">P:</abbr> {{mno}}<br/>
+					    <abbr title="Email">E:</abbr> {{email}}<br/>
+					    </address>
+					</div>
+        
 				]]>
 				
 				</template>
@@ -144,5 +173,18 @@
 				
 				</script>
 		</action-script>
+
+		<action-export name="export.st.contact.partner" download="true" output="${name}/${date}/{time}">
+				<export name="partnerList.xml" template="data-export/config/export-partner.st" engine="ST" />
+		</action-export>
+
+		<action-export name="export.tmp.contact.partner" download="true" output="${name}/${date}/{time}">
+				<export name="partnerList.xml" template="data-export/config/export-partner.tmp" engine="groovy" />
+		</action-export>
+
+		<action-method name="export.contact.partner.csv">
+				<call class="com.axelor.contact.web.PartnerController" method="dataExport" />
+		</action-method>
+
 
 </object-views>
