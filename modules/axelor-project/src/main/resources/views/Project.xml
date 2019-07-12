@@ -3,54 +3,60 @@
 		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
 		<grid name="project-grid" title="Projects" model="com.axelor.project.db.Project">
-				<field name="srno" title="Sr.No." />
 				<field name="name" />
 				<field name="description" />
-				<field name="status"></field>
+				<field name="notes" />
 		</grid>
 
 
-
-		<form name="project-form" title="Project" model="com.axelor.project.db.Project" onLoad="action-attrs-project-hideButton"
-				onSave="action-project-condition" onNew="action-project-group">
-				<!-- onNew="action-attrs-project-setDefaultValue,action-record-project-setPriority" -->
-				<panel title="Project" colSpan="12">
-						<field name="name" />
-						<field name="description" />
-						<field name="status" selection="project-status" />
-						<field name="priority" />
-						<field name="fromDateTime" />
-						<field name="toDateTime" />
-				</panel>
-				<!-- Test panel -->
-				<panel title="Test Action">
-						<field name="username">
-								<viewer>
-            <![CDATA[
-               <h4>{{record.createdBy.code}}</h4> 
-            ]]>
-            </viewer>
-
-						</field>
-						<field name="userFromDb" />
-						<field name="defaultPrefix" />
-						<field name="user1" />
-						<field name="name" />
-						<field name="description" />
-						<field name="status" selection="project-status" onChange="project.on-complete" />
-						<field name="priority" />
-						<field name="fromDateTime" />
-						<field name="toDateTime" />
-						<button name="testAction" title="testAction" onClick="test-action-attrs" />
-				</panel>
-				<panel sidebar="true">
-						<field name="createdOn" />
-						<field name="createdBy" />
-						<field name="updatedOn" />
-						<field name="updatedBy" />
-				</panel>
+		<form title="Project" name="project-form" model="com.axelor.project.db.Project">
+				<field name="name" />
+				<field name="description" />
+				<field name="notes" />
 
 		</form>
+
+
+		<!-- <form name="project-form" title="Project" model="com.axelor.project.db.Project" onLoad="action-attrs-project-hideButton" -->
+		<!-- onSave="action-project-condition" onNew="action-project-group"> -->
+		<!-- onNew="action-attrs-project-setDefaultValue,action-record-project-setPriority" -->
+		<!-- <panel title="Project" colSpan="12"> -->
+		<!-- <field name="name" /> -->
+		<!-- <field name="description" /> -->
+		<!-- <field name="status" selection="project-status" /> -->
+		<!-- <field name="priority" /> -->
+		<!-- <field name="fromDateTime" /> -->
+		<!-- <field name="toDateTime" /> -->
+		<!-- </panel> -->
+		<!-- Test panel -->
+		<!-- <panel title="Test Action"> -->
+		<!-- <field name="username"> -->
+		<!-- <viewer> -->
+		<!-- <![CDATA[ -->
+		<!-- <h4>{{record.createdBy.code}}</h4> -->
+		<!-- ]]> -->
+		<!-- </viewer> -->
+
+		<!-- </field> -->
+		<!-- <field name="userFromDb" /> -->
+		<!-- <field name="defaultPrefix" /> -->
+		<!-- <field name="user1" /> -->
+		<!-- <field name="name" /> -->
+		<!-- <field name="description" /> -->
+		<!-- <field name="status" selection="project-status" onChange="project.on-complete" /> -->
+		<!-- <field name="priority" /> -->
+		<!-- <field name="fromDateTime" /> -->
+		<!-- <field name="toDateTime" /> -->
+		<!-- <button name="testAction" title="testAction" onClick="test-action-attrs" /> -->
+		<!-- </panel> -->
+		<!-- <panel sidebar="true"> -->
+		<!-- <field name="createdOn" /> -->
+		<!-- <field name="createdBy" /> -->
+		<!-- <field name="updatedOn" /> -->
+		<!-- <field name="updatedBy" /> -->
+		<!-- </panel> -->
+
+		<!-- </form> -->
 		<selection name="project-status">
 				<option value="created">Created</option>
 				<option value="inProgress">In Progress</option>

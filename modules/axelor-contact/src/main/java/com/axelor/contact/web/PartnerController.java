@@ -5,6 +5,8 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.axelor.app.AppSettings;
 import com.axelor.contact.db.Address;
 import com.axelor.contact.db.Partner;
 import com.axelor.contact.repository.PartnerRepository;
@@ -16,75 +18,86 @@ import com.opencsv.CSVWriter;
 
 public class PartnerController {
 
-  @Inject private PartnerService partnerService;
+	@Inject
+	private PartnerService partnerService;
 
-  @Inject private PartnerRepository partnerRepository;
+	@Inject
+	private PartnerRepository partnerRepository;
 
-  public Partner findByEmail(String email) {
-    return partnerService.findByEmail(email);
-  }
+	public String getImageUrl(String imageMEtaFile) {
+		String uploadDir = AppSettings.get().get("file.upload.dir")+"/";
+		return uploadDir;
+	}
 
-  public void dataExport(ActionRequest req, ActionResponse res) {
+	public String getIdsToString(ArrayList<String> ids) {
+		System.out.println("ids");
+		String str = ids.toString().substring(1, ids.toString().length() - 1);
+		System.out.println("---------------------------------------");
+		System.out.println(str);
+		System.out.println("---------------------------------------");
 
-    String fileName =
-        "project/axelor/modules/axelor-contact/src/main/resources/data-export/partnerList.csv";
+		return str;
+	}
 
-    String[] header = {
-      "Title",
-      "First Name",
-      "Last Name",
-      "Email",
-      "Street",
-      "Area",
-      "City",
-      "Zip",
-      "State",
-      "Country",
-      "Company Name"
-    };
-    List<String[]> arrayList = new ArrayList<String[]>();
+	public Partner findByEmail(String email) {
+		return partnerService.findByEmail(email);
+	}
 
-    arrayList.add(header);
-    try {
-      FileOutputStream fos = new FileOutputStream(fileName);
-      OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
-      CSVWriter csvwriter = new CSVWriter(osw);
-      System.out.println("File name::" + fileName);
+	public void dataExport(ActionRequest req, ActionResponse res) {
 
-      // get contactList
+	System.out.println(req.getContext().entrySet());
+		
+		
+		String fileName = "project/axelor/modules/axelor-contact/src/main/resources/data-export/partnerList.csv";
 
-      List<Partner> listOfPartners = partnerRepository.all().fetch();
+		String[] header = { "Title", "First Name", "Last Name", "Email", "Street", "Area", "City", "Zip", "State",
+				"Country", "Company Name" };
+		List<String[]> arrayList = new ArrayList<String[]>();
 
-      System.out.println("listOfPartners::" + listOfPartners.size());
-      for (Partner partner : listOfPartners) {
-        List<String> list = new ArrayList<String>();
-        list.add(partner.getTitle());
-        list.add(partner.getFirstName());
-        list.add(partner.getLastName());
-        list.add(partner.getEmail());
+		arrayList.add(header);
+		try {
+			FileOutputStream fos = new FileOutputStream(fileName);
+			OutputStreamWriter osw = new OutputStreamWriter(fos, StandardCharsets.UTF_8);
+			CSVWriter csvwriter = new CSVWriter(osw);
+			System.out.println("File name::" + fileName);
 
-        for (Address address : partner.getAddresses()) {
-          List<String> listOfAddress = new ArrayList<String>();
-          List<String> listOfofCSVRecords = new ArrayList<String>();
-          listOfAddress.add(address.getStreet());
-          listOfAddress.add(address.getArea());
-          listOfAddress.add(address.getCity());
-          listOfAddress.add(address.getZip());
-          listOfAddress.add(address.getState());
-          listOfAddress.add(address.getCountry());
-          listOfofCSVRecords.addAll(list);
-          listOfofCSVRecords.addAll(listOfAddress);
-          String citiesCommaSeparated = String.join(",", listOfofCSVRecords);
-          arrayList.add(citiesCommaSeparated.split(","));
-        }
-      }
+			// get contactList
 
-      csvwriter.writeAll(arrayList);
+			List<Partner> listOfPartners = partnerRepository.all().fetch();
 
-      csvwriter.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-      System.out.println("Error msg::" + e.getMessage());
-    }
-  }
+			System.out.println("listOfPartners::" + listOfPartners.size());
+			for (Partner partner : listOfPartners) {
+				List<String> list = new ArrayList<String>();
+				List<String> listOfAddress = new ArrayList<String>();
+				list.add(partner.getTitle());
+				list.add(partner.getFirstName());
+				list.add(partner.getLastName());
+				list.add(partner.getEmail());
+
+				for (Address address : partner.getAddresses()) {
+
+					listOfAddress.add(address.getImportId());
+
+					// listOfAddress.add(address.getStreet());
+					// listOfAddress.add(address.getArea());
+					// listOfAddress.add(address.getCity());
+					// listOfAddress.add(address.getZip());
+					// listOfAddress.add(address.getState());
+					// listOfAddress.add(address.getCountry());
+					//
+
+				}
+				list.addAll(listOfAddress);
+				String citiesCommaSeparated = String.join(",", list);
+				arrayList.add(citiesCommaSeparated.split(","));
+			}
+
+			csvwriter.writeAll(arrayList);
+
+			csvwriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error msg::" + e.getMessage());
+		}
+	}
 }

@@ -18,7 +18,7 @@
 						<bind node="name" to="name" />
 						<bind node="location" to="_location" />
 						<!-- <bind node="location" to="countries" /> -->
-						<!-- <bind to="countries" search="self.name in :_location" eval="_location.split('\\|') as List" /> -->
+<!-- 						<bind to="countries" search="self.name in :_location" eval="_location.split('\\|') as List" /> -->
 						<!-- <bind column="Location" to="countries" search="self.name in :Location" eval="Location.split('\\|') as List" /> -->
 						<bind node="location" to="countries" eval="call:com.axelor.contact.web.CountryController:getListOfCountries(_location)" />
 				</bind>

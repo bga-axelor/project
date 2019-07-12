@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
+
 <partner>
   <fullName>$fullName$</fullName>
   <title>$title$</title>
@@ -23,4 +27,6 @@
    
    
    }$
+   
+     <company>$company.name$</company>
 </partner>

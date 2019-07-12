@@ -5,12 +5,16 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.xmlbeans.SystemProperties;
+
 import com.opencsv.CSVWriter;
 
 public class TestController {
 
   public static void main(String[] args) {
 
+		System.out.println("System properties::" + SystemProperties.getProperty("user.home")+"/.axelor/attachments");	  
     System.out.println("Export with csv ");
     String[] items1 = {"book", "coin", "pencil"};
     String[] items2 = {"pen", "chair", "lamp"};

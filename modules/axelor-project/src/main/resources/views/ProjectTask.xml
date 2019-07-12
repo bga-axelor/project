@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+		<grid name="task-grid" title="Project Task" model="com.axelor.project.db.ProjectTask" canEdit="true" canMove="true">
+				<field name="project"></field>
+				<field name="name" />
+				<field name="notes" />
+				<field name="state" />
+				<field name="priority" />
+				<field name="createDate" />
+				<field name="startDate" />
+				<field name="endDate" />
+				<field name="status"></field>
+		</grid>
+
+		<form model="com.axelor.project.db.ProjectTask" title="Project Task" name="task-form">
+				<field name="project"></field>
+				<field name="name" />
+				<field name="notes" />
+				<field name="state" />
+				<field name="priority" />
+				<field name="createDate" />
+				<field name="startDate" />
+				<field name="endDate" />
+		</form>
+
+		<kanban name="task-kanban" sequenceBy="priority" model="com.axelor.project.db.ProjectTask" columnBy="state" title="Project Task">
+				<field name="name" />
+				<field name="notes" />
+				<field name="state" />
+				<field name="priority" />
+				<field name="createDate" />
+				<field name="startDate" />
+				<field name="endDate" />
+				<template>
+				<![CDATA[ 
+				
+				<h4>{{name}}</h4>
+				<div class="card-body">{{notes}}</div>
+				<div class="card-footer">
+				<i class="fa fa-clock-o"></i><span>{{startDate|date:'yyyy-MM-dd HH:mm:ss'}}</span>
+				</div>
+				]]>
+				</template>
+		</kanban>
+
+		<tree name="task.tree" title="Project Task">
+				<column name="title" type="string" />
+				<column name="priority" type="integer" />
+
+				<node model="com.axelor.project.db.Project" onClick="project.task.project.open">
+						<field name="name" as="title" />
+				</node>
+
+				<node model="com.axelor.project.db.ProjectTask" parent="project" onClick="project.task.open">
+						<field name="name" as="title" />
+						<field name="priority" as="priority" />
+				</node>
+
+		</tree>
+
+		<action-view name="project.task.project.open" title="Project" model="com.axelor.project.db.Project">
+				<view type="grid" name="project-grid" />
+				<view type="form" name="project-form" />
+				<domain>self.id = :project_id</domain>
+				<context name="project_id" expr="eval: id" />
+				<context name="_showSingle" expr="true" />
+		</action-view>
+
+		<action-view name="project.task.open" title="Project Task" model="com.axelor.project.db.ProjectTask">
+				<view type="grid" name="task-grid" />
+				<view type="form" name="task-form" />
+				<domain>self.id = :task_id</domain>
+				<context name="task_id" expr="eval: id" />
+				<context name="_showSingle" expr="true" />
+		</action-view>
+
+
+		<selection name="project.task.state.selection">
+				<option value="todo">To-do</option>
+				<option value="progress">In progress</option>
+				<option value="complete">Completed</option>
+		</selection>
+</object-views>
