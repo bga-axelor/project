@@ -5,13 +5,10 @@
 		<module name="project" package="com.axelor.project.db" />
 
 		<entity name="Project" cachable="true" repository="abstract">
-				<string name="name" required="true" unique="true" translatable="true" />
-				<string name="description" translatable="true" />
-				<date name="fromDateTime"></date>
-				<date name="toDateTime"></date>
-				<string name="status" required="true" />
-				<integer name="priority" />
-
+				<string name="name" required="true" unique="true" />
+				<string name="description" />
+				<string name="notes" multiline="true" />
+				<one-to-many name="tasks" ref="com.axelor.project.db.ProjectTask" mappedBy="project" />
 		</entity>
 
 </domain-models>

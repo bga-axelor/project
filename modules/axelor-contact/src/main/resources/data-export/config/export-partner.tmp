@@ -6,5 +6,26 @@
    <lastName>${lastName}</lastName>
    <email>${email}</email>
    <mno>${mno}</mno>
+  <dateOfBirth>${dateOfBirth}</dateOfBirth>
    
-</partner>
+   <address>${addresses.size()}</address>
+   
+  <addresses>
+  
+  <% addresses?.each({ att -> %>
+  <address>
+  <street>${att.street}</street>
+  <area>${att.area}</area>
+  <city>${att.city}</city>
+  <state>${att.state}</state>
+  <zip>${att.zip}</zip>
+  <country>${att.country}</country>
+   </address>
+
+  <% })%>
+   
+   </addresses>
+   
+   <company>${company.name}</company>
+
+   </partner>

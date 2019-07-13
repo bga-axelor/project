@@ -13,6 +13,20 @@
 				<view type="form" name="project-form" />
 		</action-view>
 
+		<menuitem title="All Task" name="menu-task-all" action="task.all" parent="menu-project" />
+
+		<action-view name="task.all" title="Project Task" model="com.axelor.project.db.ProjectTask">
+<!-- 				<view type="tree" name="task.tree" /> -->
+				<view type="grid" name="task-grid" />
+				<view type="form" name="task-form" />
+				<view type="kanban" name="task-kanban"/>
+		</action-view>
+		
+		<menuitem title="All Task(tree)" name="menu-tast-all-tree" action="task.all.tree" parent="menu-project"/>
+		<action-view name="task.all.tree" title="All Task(tree)">
+		  <view type="tree" name="task.tree" />
+		</action-view>
+
 
 
 

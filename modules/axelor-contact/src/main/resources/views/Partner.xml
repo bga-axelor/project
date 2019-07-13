@@ -1,125 +1,138 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://axelor.com/xml/ns/object-views
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views
   http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-		<grid model="com.axelor.contact.db.Partner" title="Partner" name="partner-grid">
-				<toolbar>
-						<button name="btnExport" title="Export CSV" icon="fa-file-excel-o" onClick="export.contact.partner.csv" />
-						<!-- <button name="btnExport" title="Export .tmp" icon="fa-file-excel-o" onClick="export.contact.partner" /> -->
-						<button name="btnExport" title="Export st" icon="fa-file-xml-o" onClick="export.contact.partner" />
-				</toolbar>
-				<hilite background="warning" if="$contains(firstName,'fff')" />
-				<field name="fullName" />
-				<field name="firstName"></field>
-				<field name="lastName"></field>
-				<field name="dateOfBirth" />
-				<field name="addresses">
-						<grid title="Address List">
-								<field name="street" />
-								<field name="area" />
-								<field name="city" />
-								<field name="state" />
-								<field name="zip" />
-								<field name="country" />
-						</grid>
-						<form title="Address">
-								<field name="street" />
-								<field name="area" />
-								<field name="city" />
-								<field name="state" />
-								<field name="zip" />
-								<field name="country" />
-						</form>
+	<grid model="com.axelor.contact.db.Partner" title="Partner" name="partner-grid">
+		<toolbar>
+			<button name="btnExport" title="Export CSV" icon="fa-file-excel-o" onClick="export.contact.partner.csv" />
+			<!-- <button name="btnExport" title="Export .tmp" icon="fa-file-excel-o" onClick="export.contact.partner" /> -->
+			<!-- <button name="btnExport" title="Export st" icon="fa-file-xml-o" onClick="export.contact.partner" /> -->
+
+			<!-- Report -->
+			<!-- <button name="btnPrint" title="Print" icon="fa-print" onClick="print.partner.list.pdf" /> -->
+			<!-- <button name="btnNewPrint" onClick="new-print.partner.list.pdf" title="new-print" icon="fa-print" /> -->
+			<button name="btnNewPrint" onClick="print.partner.partnerDetail.pdf" title="print" icon="fa-print" />
+		</toolbar>
+		<hilite background="warning" if="$contains(firstName,'test')" />
+		<field name="id" expr="eval: id" title="Partner ID" />
+		<field name="fullName" />
+		<field name="firstName"></field>
+		<field name="lastName"></field>
+		<field name="dateOfBirth" />
+		<field name="addresses">
+			<grid title="Address List">
+				<field name="street" />
+				<field name="area" />
+				<field name="city" />
+				<field name="state" />
+				<field name="zip" />
+				<field name="country" />
+			</grid>
+			<form title="Address">
+				<field name="street" />
+				<field name="area" />
+				<field name="city" />
+				<field name="state" />
+				<field name="zip" />
+				<field name="country" />
+			</form>
+		</field>
+		<field name="company"></field>
+		<field name="department"></field>
+		<field name="isTechnical"></field>
+
+	</grid>
+
+	<form model="com.axelor.contact.db.Partner" title="Partner" name="partner-form" onSave="action-partner-validate">
+		<toolbar>
+			<button name="btnExport" title="Export st" showIf="id" icon="fa-print" onClick="export.st.contact.partner" />
+			<button name="btnExport" title="Export tmp" showIf="id" icon="fa-print" onClick="export.tmp.contact.partner" />
+			<!-- Report -->
+			<button name="btnPrint" title="Print" showIf="id" icon="fa-print" onClick="print.partner.pdf" />
+
+			<button name="btnNewPrint" title="Print-image" showIf="id" icon="fa-print" onClick="print.partnerwithImage.pdf" />
+
+		</toolbar>
+		<panel title="Personal" css="panel-red">
+			<panel colSpan="4">
+				<field name="image" showTitle="false" widget="image"></field>
+
+			</panel>
+			<panel colSpan="8" canCollapse="true">
+				<field name="fullName" title="Name" readonly="false" colSpan="12">
+					<editor x-show-titles="false"> <!-- x-show-titles hide tile and show placeholder -->
+						<field name="title" colSpan="2" selection="title.selection" />
+						<field name="firstName" colSpan="5" />
+						<field name="lastName" colSpan="5" />
+					</editor>
 				</field>
-				<field name="company"></field>
-				<field name="department"></field>
-				<field name="isTechnical"></field>
+				<!-- <field name="firstName" title="First Name" /> -->
+				<!-- <field name="lastName" /> -->
+				<field name="dateOfBirth" colSpan="7" />
 
-		</grid>
+			</panel>
+		</panel>
 
-		<form model="com.axelor.contact.db.Partner" title="Partner" name="partner-form" onSave="action-partner-validate">
-				<toolbar>
-						<button name="btnExport" title="Export st" showIf="id" icon="fa-print" onClick="export.st.contact.partner" />
-						<button name="btnExport" title="Export tmp" showIf="id" icon="fa-print" onClick="export.tmp.contact.partner" />
-				</toolbar>
-				<panel title="Personal" css="panel-red">
-						<panel colSpan="4">
-								<field name="image" showTitle="false"></field>
-						</panel>
-						<panel colSpan="8" canCollapse="true">
-								<field name="fullName" title="Name" readonly="false" colSpan="12">
-										<editor x-show-titles="false"> <!-- x-show-titles hide tile and show placeholder -->
-												<field name="title" colSpan="2" selection="title.selection" />
-												<field name="firstName" colSpan="5" />
-												<field name="lastName" colSpan="5" />
-										</editor>
-								</field>
-								<!-- <field name="firstName" title="First Name" /> -->
-								<!-- <field name="lastName" /> -->
-								<field name="dateOfBirth" colSpan="7" />
+		<panel>
+			<field name="mno" title="Mobile No." />
+			<field name="email" colSpan="4">
 
-						</panel>
-				</panel>
-
-				<panel>
-						<field name="mno" title="Mobile No." />
-						<field name="email" colSpan="4">
-
-								<viewer>
+				<viewer>
 								<![CDATA[
 						<a href="mailto:{{record.email}}">{{record.email}}</a> 
             <!-- <h4>Email::{{record.email}}</h4> -->
 								]]> 
 								</viewer>
 
-						</field>
-						<button name="generateEmailBtn" title="Generate" onClick="action-partner-script" colSpan="2" />
-						<field name="company" />
-						<field name="isTechnical" />
-						<!-- <field name="department"></field> -->
-						<!-- <field name="department" domain="self.isTechnical='true'"></field> -->
-						<field name="department" domain="self.isTechnical=:isTechnical"></field>
+			</field>
+			<button name="generateEmailBtn" title="Generate" onClick="action-partner-script" colSpan="2" />
+			<field name="company" />
+			<field name="isTechnical" />
+			<!-- <field name="department"></field> -->
+			<!-- <field name="department" domain="self.isTechnical='true'"></field> -->
+			<field name="department" domain="self.isTechnical=:isTechnical"></field>
 
-				</panel>
-				<panel title="Notes">
-						<field name="notes" colSpan="12" showTitle="false" />
-				</panel>
+		</panel>
+		<panel title="Notes">
+			<field name="notes" colSpan="12" showTitle="false" />
+		</panel>
 
-				<panel-related field="addresses">
-						<field name="street" />
-						<field name="area" />
-						<field name="city" />
-						<field name="state" />
-						<field name="zip" />
-						<field name="country" />
-				</panel-related>
+		<panel-related field="addresses">
+			<field name="street" />
+			<field name="area" />
+			<field name="city" />
+			<field name="state" />
+			<field name="zip" />
+			<field name="country" />
+		</panel-related>
 
 
-				<panel sidebar="true">
-						<field name="createdOn" />
-						<field name="createdBy" />
-						<field name="updatedOn" />
-						<field name="updatedBy" />
-				</panel>
+		<panel sidebar="true">
+			<field name="createdOn" />
+			<field name="createdBy" />
+			<field name="updatedOn" />
+			<field name="updatedBy" />
+		</panel>
 
-				<panel-related field="company">
-						<field name="name" title="Name" />
-				</panel-related>
+		<panel-related field="company">
+			<field name="name" title="Name" />
+		</panel-related>
 
-		</form>
+	</form>
 
-		<!-- Cards view -->
-		<cards name="partner-cards" title="Partner" model="com.axelor.contact.db.Partner" orderBy="fullName">
-				<field name="fullName" />
-				<field name="mno" />
-				<field name="email" />
-				<field name="address" />
-				<field name="hasImage" />
-				<field name="addresses" />
-				<template>
+	<!-- Cards view -->
+	<cards name="partner-cards" title="Partner" model="com.axelor.contact.db.Partner" orderBy="fullName">
+		<field name="fullName" />
+		<field name="mno" />
+		<field name="email" />
+		<field name="address" />
+		<field name="hasImage" />
+		<field name="addresses" />
+		<field name="id" expr="eval: id" />
+		<template>
 				<![CDATA[
-<!-- 			<div>{{addresses}}</div> -->
+<!-- 			<div>{{id}} </div>  -->
 				  <div class="span4 card-image"">
 				  <img ng-if="hasImage" ng-src="{{$image(null,'image')}}" >
 				  <img ng-if="!hasImage" ng-src="img/user.png" >
@@ -136,28 +149,28 @@
 				]]>
 				
 				</template>
-		</cards>
+	</cards>
 
 
 
 
-		<!-- <action-attrs name="action-partner-attrs"> -->
-		<!-- <attribute name="domain" for="department" expr="self.name = 'd2' "/> -->
-		<!-- </action-attrs> -->
+	<!-- <action-attrs name="action-partner-attrs"> -->
+	<!-- <attribute name="domain" for="department" expr="self.name = 'd2' "/> -->
+	<!-- </action-attrs> -->
 
-		<selection name="title.selection">
-				<option value="Dr.">Dr.</option>
-				<option value="Miss.">Miss.</option>
-				<option value="Mr.">Mr.</option>
-				<option value="Mrs.">Mrs.</option>
-		</selection>
+	<selection name="title.selection">
+		<option value="Dr.">Dr.</option>
+		<option value="Miss.">Miss.</option>
+		<option value="Mr.">Mr.</option>
+		<option value="Mrs.">Mrs.</option>
+	</selection>
 
-		<action-validate name="action-partner-validate">
-				<error message="DOB is not valid " if="dateOfBirth &gt;=__date__" />
-		</action-validate>
+	<action-validate name="action-partner-validate">
+		<error message="DOB is not valid " if="dateOfBirth &gt;=__date__" />
+	</action-validate>
 
-		<action-script name="action-partner-script">
-				<script language="js" transactional="true">
+	<action-script name="action-partner-script">
+		<script language="js" transactional="true">
 				<![CDATA[
 			   var req = $request.context; 
          var res = $response; 
@@ -172,19 +185,49 @@
 				]]>
 				
 				</script>
-		</action-script>
+	</action-script>
 
-		<action-export name="export.st.contact.partner" download="true" output="${name}/${date}/{time}">
-				<export name="partnerList.xml" template="data-export/config/export-partner.st" engine="ST" />
-		</action-export>
+	<action-export name="export.st.contact.partner" download="true" output="${name}/${date}/{time}">
+		<export name="partnerList.xml" template="data-export/config/export-partner.st" engine="ST" />
+	</action-export>
 
-		<action-export name="export.tmp.contact.partner" download="true" output="${name}/${date}/{time}">
-				<export name="partnerList.xml" template="data-export/config/export-partner.tmp" engine="groovy" />
-		</action-export>
+	<action-export name="export.tmp.contact.partner" download="true" output="${name}/${date}/{time}">
+		<export name="partnerList.xml" template="data-export/config/export-partner.tmp" engine="groovy" />
+	</action-export>
 
-		<action-method name="export.contact.partner.csv">
-				<call class="com.axelor.contact.web.PartnerController" method="dataExport" />
-		</action-method>
+	<action-method name="export.contact.partner.csv">
+		<call class="com.axelor.contact.web.PartnerController" method="dataExport" />
+	</action-method>
+
+
+	<action-report output="partner-${date}${time}" name="print.partner.pdf" design="partner_report.rptdesign" format="pdf">
+		<param name="rp_contactId" expr="eval: id" />
+	</action-report>
+
+	<action-report output="partnerList-${date}${time}" name="print.partner.list.pdf" design="listOfPartnerReport.rptdesign" format="pdf">
+		<param name="cIds" expr="call:com.axelor.contact.web.PartnerController:getIdsToString(__ids__)" />
+	</action-report>
+
+
+	<!-- design="partnerDetails.rptdesign" table design="partner_grid.rptdesign" "partner.rptdesign O2m final partner.rptdesign -->
+	<action-report output="partner-${date}${time}" name="print.partner.partnerDetail.pdf" design="partner.rptdesign" format="pdf">
+
+		<param name="ids" expr="call:com.axelor.contact.web.PartnerController:getIdsToString(__ids__)" />
+		<param name="attachment_path" expr="call:com.axelor.contact.web.PartnerController:getImageUrl(image)" />
+
+	</action-report>
+
+	<!-- <action-report output="partnerWithImage-${date}${time}" -->
+	<!-- name="print.partnerwithImage.pdf" design="partnerWithImage.rptdesign"> -->
+	<!-- <param name="pid" expr="eval: id" /> -->
+	<!-- <param name="imageUrl" -->
+	<!-- expr="call:com.axelor.contact.web.PartnerController:getImageUrl(image)" /> -->
+	<!-- </action-report> -->
+
+	<action-report output="partnerListWithImage-${date}${time}" name="new-print.partner.list.pdf" design="listOfPartner.rptdesign" format="pdf">
+		<param name="ids" expr="call:com.axelor.contact.web.PartnerController:getIdsToString(__ids__)" />
+	</action-report>
+
 
 
 </object-views>
