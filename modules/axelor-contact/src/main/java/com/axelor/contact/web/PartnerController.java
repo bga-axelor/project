@@ -6,17 +6,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import com.axelor.app.AppSettings;
 import com.axelor.contact.db.Address;
 import com.axelor.contact.db.Partner;
 import com.axelor.contact.repository.PartnerRepository;
 import com.axelor.contact.service.PartnerService;
+import com.axelor.db.JpaSupport;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
 import com.opencsv.CSVWriter;
 
-public class PartnerController {
+public class PartnerController extends JpaSupport {
 
 	@Inject
 	private PartnerService partnerService;
@@ -25,11 +29,20 @@ public class PartnerController {
 	private PartnerRepository partnerRepository;
 
 	public String getImageUrl(String imageMEtaFile) {
-		String uploadDir = AppSettings.get().get("file.upload.dir")+"/";
+		String uploadDir = AppSettings.get().get("file.upload.dir") + "/";
 		return uploadDir;
 	}
 
+	@SuppressWarnings("unchecked")
 	public String getIdsToString(ArrayList<String> ids) {
+		if (ids == null) {
+			EntityManager em = getEntityManager();
+			Query query = em.createQuery("select id from com.axelor.contact.db.Partner");
+			List<?> listOfIds = query.getResultList();
+			System.out.println("listOfIds");
+			System.out.println(listOfIds);
+			ids = (ArrayList<String>) listOfIds;
+		}
 		System.out.println("ids");
 		String str = ids.toString().substring(1, ids.toString().length() - 1);
 		System.out.println("---------------------------------------");
@@ -45,9 +58,8 @@ public class PartnerController {
 
 	public void dataExport(ActionRequest req, ActionResponse res) {
 
-	System.out.println(req.getContext().entrySet());
-		
-		
+		System.out.println(req.getContext().entrySet());
+
 		String fileName = "project/axelor/modules/axelor-contact/src/main/resources/data-export/partnerList.csv";
 
 		String[] header = { "Title", "First Name", "Last Name", "Email", "Street", "Area", "City", "Zip", "State",

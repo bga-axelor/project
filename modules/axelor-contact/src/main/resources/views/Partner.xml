@@ -10,9 +10,9 @@
 			<!-- <button name="btnExport" title="Export st" icon="fa-file-xml-o" onClick="export.contact.partner" /> -->
 
 			<!-- Report -->
-<!-- 			<button name="btnPrint" title="Print" icon="fa-print" onClick="print.partner.list.pdf" /> -->
-<!-- 			<button name="btnNewPrint" onClick="new-print.partner.list.pdf" title="new-print" icon="fa-print" /> -->
-<button name="btnNewPrint" onClick="print.partner.partnerDetail.pdf" title="print" icon="fa-print" />
+			<!-- <button name="btnPrint" title="Print" icon="fa-print" onClick="print.partner.list.pdf" /> -->
+			<!-- <button name="btnNewPrint" onClick="new-print.partner.list.pdf" title="new-print" icon="fa-print" /> -->
+			<button name="btnNewPrint" onClick="print.partner.partnerDetail.pdf" title="print" icon="fa-print" />
 		</toolbar>
 		<hilite background="warning" if="$contains(firstName,'test')" />
 		<field name="id" expr="eval: id" title="Partner ID" />
@@ -209,12 +209,12 @@
 	</action-report>
 
 
-<!--  design="partnerDetails.rptdesign"   table 
-	  design="partner_grid.rptdesign" 
+	<!-- design="partnerDetails.rptdesign" table design="partner_grid.rptdesign" "partner.rptdesign O2m final partner.rptdesign -->
+	<action-report output="partner-${date}${time}" name="print.partner.partnerDetail.pdf" design="partner.rptdesign" format="pdf">
 
- -->
-	<action-report output="partnerList-${date}${time}" name="print.partner.partnerDetail.pdf" design="partnerWithAddress.rptdesign" format="pdf">
-		<param name="cIds" expr="call:com.axelor.contact.web.PartnerController:getIdsToString(__ids__)" />
+		<param name="ids" expr="call:com.axelor.contact.web.PartnerController:getIdsToString(__ids__)" />
+		<param name="attachment_path" expr="call:com.axelor.contact.web.PartnerController:getImageUrl(image)" />
+
 	</action-report>
 
 	<!-- <action-report output="partnerWithImage-${date}${time}" -->
